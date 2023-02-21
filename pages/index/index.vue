@@ -1,8 +1,12 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+	<view class="home">
+		<scroll-view scroll-x class="navscroll">
+			<view class="item" v-for="item in 10">国内</view>
+		</scroll-view>
+		<view class="content">
+			<view class="row" v-for="item in 10">
+				<newsbox></newsbox>
+			</view>
 		</view>
 	</view>
 </template>
@@ -11,7 +15,7 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+
 			}
 		},
 		onLoad() {
@@ -23,30 +27,35 @@
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
+	.navscroll {
+		height: 100rpx;
+		background-color: #f7f8fa;
+		white-space: nowrap;
+
+		/deep/::-webkit-scrollbar {
+			width: 4px !important;
+			height: 1px !important;
+			overflow: auto !important;
+			background: transparent !important;
+			-webkit-appearance: auto !important;
+			display: block;
+		}
+
+		.item {
+			font-size: 40rpx;
+			display: inline-block;
+			line-height: 100rpx;
+			padding: 0 30rpx;
+			color: #333;
+		}
+	}
+
 	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		padding: 30rpx;
+		.row {
+			border-bottom: 1px dotted #efefef;
+			padding: 20rpx 0;
+		}
 	}
 </style>
