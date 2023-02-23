@@ -1,13 +1,13 @@
 <template>
 	<view class="newsbox">
 		<view class="pic">
-			<image src="../../static/images/0.jpg" mode="aspectFill"></image>
+			<image :src="item.picurl" mode="aspectFill"></image>
 		</view>
 		<view class="text">
-			<view class="title">默认的新闻标题默认的新闻标题默认的新闻标题默认的新闻标题默认的新闻标题</view>
+			<view class="title">{{item.title}}</view>
 			<view class="info">
-				<text>作者名称</text>
-				<text>998浏览</text>
+				<text>{{item.author}}</text>
+				<text>{{item.hits}}</text>
 			</view>
 		</view>
 	</view>
@@ -16,6 +16,19 @@
 <script>
 	export default {
 		name: "newsbox",
+		props:{
+			item:{
+				type:Object,
+				default(){
+					return{
+						title:"组件内默认的标题",
+						author:"张三",
+						hits:668,
+						picurl:"../../static/images/nopic.jpg"
+					}
+				}
+			}
+		},
 		data() {
 			return {
 
@@ -46,7 +59,7 @@
 			justify-content: space-between;
 
 			.title {
-				font-size: 38rpx;
+				font-size: 36rpx;
 				color: #333;
 				text-overflow: -o-ellipsis-lastline;
 				overflow: hidden; //溢出内容隐藏
