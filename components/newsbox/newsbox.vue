@@ -5,12 +5,9 @@
 		</view>
 		<view class="text">
 			<view class="title">{{item.title}}</view>
-			<view class="info" v-if="!item.looktime">
+			<view class="info">
 				<text>{{item.author}}</text>
-				<text>{{item.hits}}浏览</text>
-			</view>
-			<view class="info" v-else>
-				<text>浏览时间：{{item.looktime}}</text>
+				<text>{{item.hits}}</text>
 			</view>
 		</view>
 	</view>
@@ -27,8 +24,7 @@
 						title:"组件内默认的标题",
 						author:"张三",
 						hits:668,
-						picurl:"../../static/images/nopic.jpg",
-						looktime:"2022-12-12 10:10:20"
+						picurl:"../../static/images/nopic.jpg"
 					}
 				}
 			}
