@@ -58,7 +58,7 @@
 					data:{
 						num:5,
 						cid:50,
-					}
+					},
 					success: res => {
 						console.log(res);
 						this.newsArr = res.data
