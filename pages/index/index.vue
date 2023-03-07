@@ -5,7 +5,7 @@
 		</scroll-view>
 		<view class="content">
 			<view class="row" v-for="item in 10">
-				<newsbox></newsbox>
+				<newsbox @click.native="goDetail"></newsbox>
 			</view>
 		</view>
 	</view>
@@ -25,6 +25,13 @@
 			// 点击导航切换
 			clickNav(index){
 				this.navIndex = index
+			},
+			
+			// 跳转到详情页
+			goDetail(){
+				uni.navigateTo({
+					url:"/pages/detail/detail"
+				})
 			}
 		}
 	}
