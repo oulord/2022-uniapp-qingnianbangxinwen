@@ -2,7 +2,7 @@
 	<view class="home">
 		<scroll-view scroll-x class="navscroll">
 			<view class="item" :class="index == navIndex ? 'active' : ' '" v-for="(item,index) in navArr"
-				@click="clickNav(index)" :key="item.id">
+				@click="clickNav(index,item.id)" :key="item.id">
 				{{item.classname}}
 			</view>
 		</scroll-view>
@@ -10,6 +10,10 @@
 			<view class="row" v-for="item in newsArr" :key="item.id">
 				<newsbox :item="item" @click.native="goDetail"></newsbox>
 			</view>
+		</view>
+		<view class="nodata" v-if=!newsArr.length>
+			<!-- node=widthFix:宽度不变,高度自动变化,保持原图宽高比不变 -->
+			<image src="../../static/images/nodata.png" mode="widthFix"></image>
 		</view>
 	</view>
 </template>
@@ -20,17 +24,20 @@
 			return {
 				navIndex: 0,
 				navArr: [],
-				newsArr:[]
+				newsArr: []
 			}
 		},
+		// 第一次进入页面执行
 		onLoad() {
 			this.getNavDat();
 			this.getNewsData();
 		},
 		methods: {
 			// 点击导航切换
-			clickNav(index) {
+			clickNav(index, id) {
 				this.navIndex = index
+				// console.log(id);
+				this.getNewsData(id)
 			},
 
 			// 跳转到详情页
@@ -52,12 +59,11 @@
 			},
 
 			// 获取新闻列表数据
-			getNewsData() {
+			getNewsData(id = 50) {
 				uni.request({
 					url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
-					data:{
-						num:5,
-						cid:50,
+					data: {
+						cid: id,
 					},
 					success: res => {
 						console.log(res);
@@ -107,6 +113,14 @@
 		.row {
 			border-bottom: 1px dotted #efefef;
 			padding: 20rpx 0;
+		}
+	}
+	.nodata{
+		display: flex;
+		justify-content: center;
+		image{
+			width: 360rpx;
+			
 		}
 	}
 </style>
