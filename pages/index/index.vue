@@ -20,13 +20,6 @@
 			<!-- node=widthFix:宽度不变,高度自动变化,保持原图宽高比不变 -->
 			<image src="../../static/images/nodata.png" mode="widthFix"></image>
 		</view>
-		
-		<!-- 当加载完新闻后，出现加载完的提示 -->
-		<view class="loading" v-if=newsArr.length>
-			<view></view>
-			<view v-if="loading==1">数据加载中...</view>
-			<view v-if="loading==2">数据加载完毕</view>
-		</view>
 	</view>
 </template>
 
@@ -35,10 +28,9 @@
 		data() {
 			return {
 				navIndex: 0,
-				navArr: [],     //导航栏数据
-				newsArr: [] ,   //新闻数据
+				navArr: [], //导航栏数据
+				newsArr: [] ,//新闻数据
 				currentPage:1,  //定义第一页新闻
-				loading:0,      //默认值为 0，1 为加载中，2 为加载完毕
 			}
 		},
 		// 第一次进入页面执行
@@ -46,16 +38,10 @@
 			this.getNavDat();
 			this.getNewsData();
 		},
-		// 页面触底时执行
 		onReachBottom(){
-			// 当loading 为2时,数据已加载完毕,不需要在发送请求
-			if (this.loading == 2) {
-				return;
-			}
 			// 对触底后的 currentPage 进行加页,并且重新请求 currentPage为2 的新闻数据
 			// console.log("到底部了");
 			this.currentPage++;
-			this.loading=1;
 			this.getNewsData();
 		},
 		methods: {
@@ -66,8 +52,6 @@
 				this.currentPage=1;
 				// 将新闻数据重新清空
 				this.newsArr=[];
-				// 切换页面后重置loading
-				this.loading==0;
 				// console.log(id);  id为 50、51、52……
 				this.getNewsData(id);				
 			},
@@ -102,9 +86,6 @@
 					},
 					success: res => {
 						console.log(res);
-						if(res.data.length == 0){
-							this.loading = 2
-						}
 						// 将获取的新闻列表数据 放入 newsArr 数组中进行拼接
 						this.newsArr = [...this.newsArr,...res.data]
 					}
@@ -162,15 +143,6 @@
 		image {
 			width: 360rpx;
 
-		}
-	}
-	
-	.loading{
-		text-align: center;
-		font-size: 26rpx;
-		color: #888;
-		view{
-			padding: 20rpx 0;
 		}
 	}
 </style>
