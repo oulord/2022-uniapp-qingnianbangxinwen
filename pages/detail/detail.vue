@@ -20,6 +20,7 @@
 </template>
 
 <script>
+	import {parseTime} from "../../utils/tool.js"
 	export default {
 		data() {
 			return {
@@ -40,7 +41,16 @@
 					data:this.options,
 					success:res => {
 						console.log(res);
+						// 引入utils模块中的转换时间戳的方法
+						res.data.posttime = parseTime(res.data.posttime)
+						// 图片在微信小程序中还是没有改变,使用一个正则表达式
+						res.data.content = res.data.content.replace(/<img/gi,'<img style = "max-width:100"')
+						// 将请求的数据赋值给detail
 						this.detail = res.data
+						// 动态设置当前页面的导航标题
+						uni.setNavigationBarTitle({
+							title: this.detail.title
+						});
 					}
 				})
 			},
