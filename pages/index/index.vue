@@ -11,7 +11,7 @@
 		<!-- 循环新闻 -->
 		<view class="content">
 			<view class="row" v-for="item in newsArr" :key="item.id">
-				<newsbox :item="item" @click.native="goDetail"></newsbox>
+				<newsbox :item="item" @click.native="goDetail(item)"></newsbox>
 			</view>
 		</view>
 
@@ -73,9 +73,10 @@
 			},
 
 			// 跳转到详情页
-			goDetail() {
+			goDetail(item) {
+				// console.log(item);  获取到新闻的数据
 				uni.navigateTo({
-					url: "/pages/detail/detail"
+					url: `/pages/detail/detail?cid=${item.classid}&id=${item.id}`
 				})
 			},
 
