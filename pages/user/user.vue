@@ -5,8 +5,8 @@
 			<view class="text">浏览历史</view>
 		</view>
 		<view class="content">
-			<view class="row" v-for="item in 10">
-				<newsbox @click.native="goDetail"></newsbox>
+			<view class="row" v-for="item in listArr">
+				<newsbox :item="item" @click.native="goDetail(item)"></newsbox>
 			</view>
 		</view>
 	</view>
@@ -16,15 +16,25 @@
 	export default {
 		data() {
 			return {
-
+				listArr: []
 			};
 		},
-		methods:{
+		onShow(){
+			this.getData()
+		},
+		methods: {
 			// 跳转到详情页面
-			goDetail(){
+			goDetail(item) {
 				uni.navigateTo({
-					url:"/pages/detail/detail"
+					url: `/pages/detail/detail?cid=${item.classid}&id=${item.id}`
 				})
+			},
+
+			// 获取缓存浏览记录
+			getData() {
+				let hisArr = uni.getStorageSync("historyArr") || []
+				this.listArr = hisArr
+				console.log(this.listArr);
 			}
 		}
 	}
@@ -40,17 +50,21 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+
 			image {
 				width: 150rpx;
 				height: 150rpx;
 			}
+
 			.text {
 				font-size: 38rpx;
 				padding-top: 20rpx;
 			}
 		}
+
 		.content {
 			padding: 30rpx;
+
 			.row {
 				border-bottom: 1px dotted #efefef;
 				padding: 20rpx 0;

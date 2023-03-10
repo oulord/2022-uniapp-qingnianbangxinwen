@@ -32,10 +32,10 @@
 		onLoad(e){
 			// console.log(e);
 			this.options = e;
-			this.getDatail()
+			this.getDetail()
 		},
 		methods:{
-			getDatail(){
+			getDetail(){
 				uni.request({
 					url:"https://ku.qingnian8.com/dataApi/news/detail.php",
 					data:this.options,
@@ -47,6 +47,9 @@
 						res.data.content = res.data.content.replace(/<img/gi,'<img style = "max-width:100"')
 						// 将请求的数据赋值给detail
 						this.detail = res.data
+						
+						this.saveHistory()
+						
 						// 动态设置当前页面的导航标题
 						uni.setNavigationBarTitle({
 							title: this.detail.title
@@ -54,6 +57,20 @@
 					}
 				})
 			},
+			// 数据缓存
+			saveHistory(){
+				let historyArr = uni.getStorageSync("historyArr") || []
+				// 定义需要的值
+				let item = {
+					id:this.detail.id,
+					classid:this.detail.classid,
+					picurl:this.detail.picurl,
+					title:this.detail.title,					
+					looktime:parseTime(Date.now())
+				}
+				historyArr.unshift(item)
+				uni.setStorageSync("historyArr",historyArr)
+			}
 		}
 	}
 </script>

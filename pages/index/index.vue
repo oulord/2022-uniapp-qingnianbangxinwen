@@ -16,13 +16,13 @@
 		</view>
 
 		<!-- 当没有新闻的页面 -->
-		<view class="nodata" v-if=!newsArr.length>
+		<view class="nodata" v-if="!newsArr.length">
 			<!-- node=widthFix:宽度不变,高度自动变化,保持原图宽高比不变 -->
 			<image src="../../static/images/nodata.png" mode="widthFix"></image>
 		</view>
 		
 		<!-- 当加载完新闻数据后，出现加载完的提示 -->
-		<view class="loading" v-if=newsArr.length>
+		<view class="loading" v-if="newsArr.length">
 			<view></view>
 			<view v-if="loading == 1">数据加载中...</view>
 			<view v-if="loading == 2">数据加载完毕</view>
