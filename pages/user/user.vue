@@ -9,6 +9,10 @@
 				<newsbox :item="item" @click.native="goDetail(item)"></newsbox>
 			</view>
 		</view>
+		<view class="nohistory" v-if="listArr.length == 0">
+			<image src="../../static/images/nohis.png" mode="widthFix"></image>
+			<view class="text">无浏览记录</view>
+		</view>
 	</view>
 </template>
 
@@ -19,6 +23,7 @@
 				listArr: []
 			};
 		},
+		// 每一次进入页面执行
 		onShow(){
 			this.getData()
 		},
@@ -68,6 +73,20 @@
 			.row {
 				border-bottom: 1px dotted #efefef;
 				padding: 20rpx 0;
+			}
+		}
+		
+		.nohistory{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			image{
+				width: 400rpx;
+			}
+			.text{
+				font-size: 26rpx;
+				color:#888;
 			}
 		}
 	}

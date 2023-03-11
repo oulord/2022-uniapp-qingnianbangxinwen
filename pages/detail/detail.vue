@@ -68,6 +68,17 @@
 					title:this.detail.title,					
 					looktime:parseTime(Date.now())
 				}
+				
+				// 获取缓存中重复数据的最新index,使用 findIndex 方法,i 为 当前元素 => historyArr
+				let index = historyArr.findIndex((i) => {
+					return i.id == this.detail.id
+				})
+				
+				// 对数据去重
+				if(index >= 0){
+					historyArr.splice(index,1)
+				}
+				
 				historyArr.unshift(item)
 				uni.setStorageSync("historyArr",historyArr)
 			}
